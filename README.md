@@ -1,2 +1,2 @@
 # todolist
-bundlers tests
+bundlers testing on simple project
