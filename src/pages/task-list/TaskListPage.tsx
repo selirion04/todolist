@@ -1,22 +1,18 @@
 import React from 'react';
-import { Task } from '../../shared/api';
+import { useQuery } from 'react-query';
+
 import { Row } from '../../shared/components';
 import { TaskCard } from '../../entities/task/components/task-card/TaskCard';
+import { getTaskList } from '../../entities/task/api/task';
 
 const TaskListPage: React.FC = () => {
-  // todo fetch data with react query
-  const tasks: Task[] = [
-    {
-      id: 0,
-      title: 'Test Task 0',
-    },
-    {
-      id: 1,
-      title: 'Test Task 1',
-    },
-  ];
+  const { isLoading, data } = useQuery('tasksList', getTaskList)
 
-  const tasksCards = tasks.map(task => <TaskCard data={task} />);
+  if (isLoading) {
+    return <div>Loading...</div>; // todo spinner
+  }
+
+  const tasksCards = data?.map(task => <TaskCard data={task} />);
 
   return (
     <div>
